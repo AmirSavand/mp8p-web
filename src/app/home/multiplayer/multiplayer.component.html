@@ -1,0 +1,11 @@
+<div class="wrapper">
+  <a class="text-secondary" routerLink="..">Main Menu</a>
+  <h1>Multiplayer</h1>
+  <button class="btn btn-dark"
+          [class.ms-2]="!first"
+          [disabled]="loading"
+          *ngFor="let count of players; let first = first"
+          (click)="findMatch(count)">
+    {{ count }} Players
+  </button>
+</div>

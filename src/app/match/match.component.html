@@ -1,0 +1,27 @@
+<app-header></app-header>
+
+<div class="container py-3" *ngIf="match">
+
+  <div class="alert alert-primary d-flex align-items-center" *ngIf="match.status !== matchStatus.START">
+    <ng-container *ngIf="match.status === matchStatus.FINISH">
+      <b>Game Over!</b>
+      <span class="ms-2" *ngIf="match.winner">{{ match.winner.name }} has won the match.</span>
+      <span class="ms-2" *ngIf="!match.winner">Match was abandoned.</span>
+    </ng-container>
+    <ng-container *ngIf="match.status === matchStatus.WAIT">
+      Waiting for another player to join...
+    </ng-container>
+    <a routerLink="/" class="btn btn-primary ms-auto">Main Menu</a>
+  </div>
+
+  <div class="boards row">
+    <div class="col-6 p-0 my-2" *ngFor="let board of match.boards; let index = index">
+      <app-board [blocks]="board.blocks"
+                 [image]="match.boards_image"
+                 [player]="match.players[index]"
+                 [interactive]="match.status === matchStatus.START"
+                 [id]="board.id">
+      </app-board>
+    </div>
+  </div>
+</div>

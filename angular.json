@@ -46,7 +46,6 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
@@ -87,7 +86,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "mp8p:build"
+            "browserTarget": "mp8p:build",
+            "disableHostCheck": true,
+            "host": "0.0.0.0"
           },
           "configurations": {
             "production": {
@@ -109,7 +110,6 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
@@ -137,6 +137,12 @@
             "production": {
               "devServerTarget": "mp8p:serve:production"
             }
+          }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "cname": "mp8p.savandbros.com"
           }
         }
       }

@@ -1,0 +1,10 @@
+<form [formGroup]="form.form" (ngSubmit)="submit()">
+  <a class="text-secondary" routerLink="..">Main Menu</a>
+  <h1>Register</h1>
+  <p>Let's make a profile for you to start playing.</p>
+  <div class="form-floating mb-3">
+    <input type="email" class="form-control" id="name" formControlName="name" placeholder="Player">
+    <label for="name">Display name</label>
+  </div>
+  <button class="btn btn-primary" [disabled]="form.form.disabled || form.loading">Start</button>
+</form>

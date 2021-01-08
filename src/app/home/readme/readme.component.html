@@ -1,0 +1,30 @@
+<div class="wrapper">
+  <a class="text-secondary" routerLink="..">Main Menu</a>
+  <h1>README</h1>
+  <p>Multiplayer 8 Puzzle game by <a [href]="savandbros">Savand Bros</a>.</p>
+  <h2>Information</h2>
+  <ul>
+    <li *ngFor="let item of information">{{ item }}</li>
+  </ul>
+  <h2>Source Codes</h2>
+  <ul>
+    <li *ngFor="let item of sourceCodes">
+      <a [href]="item.link">{{ item.text }}</a>
+    </li>
+  </ul>
+  <h2>Technologies</h2>
+  <ul>
+    <li *ngFor="let item of technologies">
+      <a [href]="item.link">{{ item.text }}</a>
+    </li>
+  </ul>
+  <h2>Feedback</h2>
+  <p>Feel free to contact us for any suggestions or feedback:</p>
+  <ul>
+    <li *ngFor="let item of feedback">
+      <a [href]="item.link">{{ item.text }}</a>
+    </li>
+  </ul>
+  <hr>
+  <p class="small">Made with 💖 by <a [href]="savandbros">Savand Bros</a> &copy; {{ currentYear }}</p>
+</div>

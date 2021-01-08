@@ -1,0 +1,43 @@
+@import "src/variables";
+
+$size: 100px;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &:not(.is-solved) .is-space {
+    background-image: none !important;
+    cursor: default;
+  }
+}
+
+.blocks-wrapper {
+  background-position: center;
+  background-size: contain;
+  display: inline-block;
+  box-shadow: inset 0 0 0 10000px rgba(0, 0, 0, 0.75);
+  border: 10px solid $dark;
+
+  > .blocks {
+    display: grid;
+    grid-template-columns: repeat(3, $size);
+    grid-template-rows: repeat(3, $size);
+    box-shadow: inset 0 0 30px 15px rgba(black, 0.5);
+
+    > .block {
+      background-position: center;
+      background-size: contain;
+      cursor: pointer;
+    }
+  }
+}
+
+.player {
+  text-align: center;
+  padding: map_get($spacers, 2) map_get($spacers, 4);
+  background: $primary;
+  color: white;
+  font-size: $font-size-lg;
+}

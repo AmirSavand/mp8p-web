@@ -1,0 +1,21 @@
+<!-- Title -->
+<h1>Main Menu</h1>
+
+<!-- Register -->
+<div class="alert border d-flex align-items-center" *ngIf="!isLoggedIn">
+  <div>🚀 You must register with a player name to start playing.</div>
+  <a routerLink="../register" class="btn btn-primary ms-auto">Register</a>
+</div>
+
+<!-- Single player -->
+<button [class.disabled]="!isLoggedIn || loading"
+        (click)="singlePlayer()"
+        class="btn btn-primary me-2">
+  Single Player
+</button>
+
+<!-- Multiplayer -->
+<a [class.disabled]="!isLoggedIn" routerLink="../multiplayer" class="btn btn-primary me-2">Multiplayer</a>
+
+<!-- README -->
+<a routerLink="../readme" class="btn btn-outline-primary">README</a>

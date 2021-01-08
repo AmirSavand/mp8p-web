@@ -1,29 +1,47 @@
-# mp8p (web)
+# mp8p (Web)
 
-Web (front-end) repository for Multiplayer 8 Puzzle.
+![Code Quality](https://github.com/AmirSavand/mp8p-web/workflows/Code%20Quality/badge.svg)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
+Front-end repository for mp8p.
 
-## Development server
+## Development
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Install dependencies.
 
-## Code scaffolding
+```bash
+> npm install
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run the server.
 
-## Build
+```bash
+> npm run serve
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Build the app.
 
-## Running unit tests
+```bash
+> npm run build
+> npm run build-prodduction
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Check code quality.
 
-## Running end-to-end tests
+```bash
+> npm run lint
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Deploy (with build).
 
-## Further help
+```bash
+> npm run deploy
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Technologies
+
+Here's what the project is built with:
+
+- [Angular](https://angular.io)
+- [Bootstrap](https://getbootstrap.com)
+- [Pusher](https://pusher.com)
+- [WebStorm](https://www.jetbrains.com/webstorm/)
