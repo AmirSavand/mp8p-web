@@ -9,8 +9,9 @@ import { LinkListItem } from 'src/app/shared/interfaces/link-list-item';
 export class ReadmeComponent {
 
   readonly information: string[] = [
-    'Version: v0.1.0',
-    'Published: Jan, 2020',
+    'Version: v0.2.0',
+    'Published: January, 2020',
+    'Updated: March, 2021',
     'License: GPL-3.0',
   ];
 
