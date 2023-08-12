@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Player } from 'src/app/shared/interfaces/player';
 import { ReactiveFormData } from 'src/app/shared/interfaces/reactive-form-data';
@@ -19,7 +19,7 @@ export class RegisterComponent {
     }),
   };
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
               private api: ApiService,
               private router: Router) {
   }
