@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Match } from 'src/app/shared/interfaces/match';
 import { Player } from 'src/app/shared/interfaces/player';
 import { environment } from 'src/environments/environment';
