@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { Match } from 'src/app/shared/interfaces/match';
 import { Player } from 'src/app/shared/interfaces/player';
 import { environment } from 'src/environments/environment';
-import {concatMap} from "rxjs/operators";
+import { concatMap } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root',
