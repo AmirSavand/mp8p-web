@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Board } from 'src/app/shared/interfaces/board';
+import {Observable, Subject} from 'rxjs';
 import { Match } from 'src/app/shared/interfaces/match';
 import { Player } from 'src/app/shared/interfaces/player';
 import { environment } from 'src/environments/environment';
+import {concatMap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,15 @@ export class ApiService {
    */
   private static readonly BASE = environment.api;
 
+  private moveBlockSubject = new Subject<{ board: string, position: number }>();
+
   constructor(private http: HttpClient) {
+    this.moveBlockSubject.pipe(
+        concatMap(({ board, position }) =>
+          this.http.post<void>(`${ApiService.BASE}board/${board}/move-block/`, { position })
+        )
+      )
+      .subscribe();
   }
 
   register(payload: Partial<Player>): Observable<Player> {
@@ -32,6 +40,9 @@ export class ApiService {
   }
 
   moveBlock(board: string, position: number): Observable<void> {
-    return this.http.post<void>(`${ApiService.BASE}board/${board}/move-block/`, { position });
+    this.moveBlockSubject.next({ board, position });
+    return new Observable<void>(observer => {
+      observer.complete();
+    });
   }
 }
