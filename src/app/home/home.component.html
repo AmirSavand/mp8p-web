@@ -1,7 +1,7 @@
 <div class="container py-5">
 
   <!-- Brand -->
-  <h1 class="display-1 text-center m-0 d-flex align-items-center justify-content-center">
+  <h1 class="display-1 text-center m-0 d-flex align-items-center">
     <img src="assets/favicon/favicon.png" alt="mp8p" [width]="64">
     <a class="ms-3 text-primary" routerLink=".">mp8p</a>
   </h1>
@@ -11,4 +11,25 @@
 
   <!-- Content -->
   <router-outlet></router-outlet>
+
+  <div class="mt-5">
+  <h1 class="mb-4">The High scores</h1>
+  <table class="text-center table">
+    <thead>
+    <tr>
+      <th>Rank</th>
+      <th class="col-md-3">Player name</th>
+      <th> Time </th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let player of allData; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ player[0] }}</td>
+      <td>{{ player[1] }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 </div>

@@ -22,6 +22,14 @@ export class MatchComponent implements OnInit, OnDestroy {
   // This match data (includes players and boards).
   match: Match;
 
+  minutes: number = 0;
+
+  seconds: number = 0;
+
+  milliseconds: number = 0;
+
+  timerInterval: any;
+
   // Authenticated player ID.
   readonly player = localStorage.player;
 
@@ -50,6 +58,7 @@ export class MatchComponent implements OnInit, OnDestroy {
          * If match is not finished, connect to pusher for this match.
          */
         if (this.match.status !== MatchStatus.FINISH) {
+          this.startTimer()
           PusherService.subscribeChannel(this.channel);
           PusherService.bindEvent(this.channel, 'update', (data: Match): void => {
             this.match = data;
@@ -58,11 +67,37 @@ export class MatchComponent implements OnInit, OnDestroy {
              */
             if (this.match.status === MatchStatus.FINISH) {
               PusherService.unsubscribeChannel(this.channel);
+              this.stopTimer();
             }
           });
         }
       });
     });
+  }
+
+  protected startTimer(): void {
+    const startTime = Date.now();
+    this.timerInterval = setInterval(() => {
+      const currentTime = Date.now();
+      const elapsedTime = currentTime - startTime;
+
+      this.minutes = Math.floor(elapsedTime / (1000 * 60));
+      this.seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+      this.milliseconds = elapsedTime % 1000;
+    }, 1); // Update every 10 milliseconds
+  }
+
+  stopTimer(): void {
+    clearInterval(this.timerInterval);
+    const stoppedTime = {
+      minutes: this.minutes,
+      seconds: this.seconds,
+      milliseconds: this.milliseconds
+    };
+    if (this.match.winner.name) {
+      const key = this.match.winner.name.toLowerCase().replace(/\s+/g, '_'); // Convert to lowercase and replace spaces with underscores
+      localStorage.setItem(JSON.stringify(key), JSON.stringify(stoppedTime));
+    }
   }
 
   ngOnDestroy(): void {
