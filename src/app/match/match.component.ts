@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { BoardComponent } from 'src/app/match/board/board.component';
 import { MatchStatus } from 'src/app/shared/enums/match-status';
@@ -25,15 +25,15 @@ export class MatchComponent implements OnInit, OnDestroy {
   // Authenticated player ID.
   readonly player = localStorage.player;
 
-  constructor(private route: ActivatedRoute,
-              private api: ApiService) {
-  }
-
   /**
    * @returns Channel name of this match.
    */
   get channel(): string {
     return `match-${this.match.id}`;
+  }
+
+  constructor(private route: ActivatedRoute,
+              private api: ApiService) {
   }
 
   ngOnInit(): void {
@@ -58,6 +58,10 @@ export class MatchComponent implements OnInit, OnDestroy {
              */
             if (this.match.status === MatchStatus.FINISH) {
               PusherService.unsubscribeChannel(this.channel);
+              /** Tell all boards that match is finished. */
+              this.boards.forEach((board: BoardComponent): void => {
+                board.matchFinish();
+              });
             }
           });
         }

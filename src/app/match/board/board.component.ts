@@ -1,4 +1,6 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
 import { Block } from 'src/app/shared/interfaces/block';
 import { Board } from 'src/app/shared/interfaces/board';
 import { Player } from 'src/app/shared/interfaces/player';
@@ -28,6 +30,12 @@ export class BoardComponent implements OnInit, OnDestroy {
     [5, 7],
   ];
 
+  // Hold observables to cancel them later.
+  private readonly subscriptions = new Subscription();
+
+  // List of all move block API calls for queueing.
+  private readonly moveBlockSubject = new Subject<Observable<void>>();
+
   // Board unique UUID.
   @Input() id: string;
 
@@ -52,14 +60,14 @@ export class BoardComponent implements OnInit, OnDestroy {
   // Space block reference.
   spaceBlock: Block;
 
-  constructor(private api: ApiService) {
-  }
-
   /**
    * @returns Board channel name.
    */
   get channel(): string {
     return `board-${this.id}`;
+  }
+
+  constructor(private api: ApiService) {
   }
 
   ngOnInit(): void {
@@ -71,12 +79,19 @@ export class BoardComponent implements OnInit, OnDestroy {
       });
     }
     this.updateBoard();
+    /** Start making API calls for moving blocks. */
+    this.subscriptions.add(
+      this.moveBlockSubject
+        .pipe(concatMap((data: Observable<void>): Observable<void> => data))
+        .subscribe(),
+    );
   }
 
   ngOnDestroy(): void {
     if (!this.authority) {
       PusherService.unsubscribeChannel(this.channel);
     }
+    this.subscriptions.unsubscribe();
   }
 
   /**
@@ -107,7 +122,8 @@ export class BoardComponent implements OnInit, OnDestroy {
      * block can be moved.
      */
     if (this.authority && this.interactive && canMoveBlock) {
-      this.api.moveBlock(this.id, block.position).subscribe();
+      /** Add the API call to the queue. */
+      this.moveBlockSubject.next(this.api.moveBlock(this.id, block.position));
       /**
        * Now move the block to space (swap them).
        */
@@ -115,5 +131,10 @@ export class BoardComponent implements OnInit, OnDestroy {
       block.position = spacePosition;
       this.updateBoard();
     }
+  }
+
+  /** Is triggered when the match is completed. */
+  matchFinish(): void {
+    this.subscriptions.unsubscribe();
   }
 }
