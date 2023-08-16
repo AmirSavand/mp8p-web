@@ -1,4 +1,4 @@
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ApiError } from './api-error';
 
 /**
@@ -6,7 +6,7 @@ import { ApiError } from './api-error';
  */
 export interface ReactiveFormData {
   id?: number;
-  form?: FormGroup;
+  form?: UntypedFormGroup;
   loading?: boolean;
   error?: ApiError;
   errorStatus?: number;
