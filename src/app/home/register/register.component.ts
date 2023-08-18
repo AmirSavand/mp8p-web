@@ -21,7 +21,7 @@ export class RegisterComponent {
 
   constructor(private formBuilder: UntypedFormBuilder,
               private api: ApiService,
-              private router: Router) {
+              public router: Router) {
   }
 
   submit(): void {
