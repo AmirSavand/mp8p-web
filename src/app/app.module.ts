@@ -9,21 +9,27 @@ import { AppComponent } from './app.component';
 import { ApiService } from './shared/services/api.service';
 import { HttpInterceptorService } from './shared/services/http-interceptor.service';
 import { PusherService } from './shared/services/pusher.service';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     LoadingBarModule,
     LoadingBarHttpClientModule,
+    RouterModule
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
     ApiService,
     PusherService,
+
   ],
   bootstrap: [
     AppComponent,
