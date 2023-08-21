@@ -9,6 +9,8 @@
     "build-production": "ng build -c production",
     "deploy": "ng deploy",
     "test": "ng test",
+    "test-headless": "ng test --browsers=ChromeHeadless",
+    "test-single": "ng test --browsers=ChromeHeadless --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -57,6 +59,6 @@
     "karma-jasmine-html-reporter": "^2.0.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
-    "typescript": "~4.9.5"
+    "typescript": "~5.1.3"
   }
 }
